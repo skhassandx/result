@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>NU Result Checker</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            background: #f2f4f7;
+        }
+
+        .container {
+            max-width: 450px;
+            margin: 50px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,.1);
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        input, select, button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 12px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+
+        button {
+            border: none;
+            cursor: pointer;
+        }
+
+        .official {
+            background: #006a4e;
+            color: white;
+        }
+
+        .server {
+            background: #007bff;
+            color: white;
+        }
+
+        .info {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>🎓 NU Result Checker</h2>
+
+    <select id="exam">
+        <option value="Honours 1st Year">Honours 1st Year</option>
+        <option value="Honours 2nd Year">Honours 2nd Year</option>
+        <option value="Honours 3rd Year">Honours 3rd Year</option>
+        <option value="Honours 4th Year">
+            Honours 4th Year
+        </option>
+    </select>
+
+    <input
+        type="number"
+        id="roll"
+        placeholder="Exam Roll"
+    >
+
+    <input
+        type="number"
+        id="registration"
+        placeholder="Registration Number"
+    >
+
+    <input
+        type="number"
+        id="year"
+        placeholder="Exam Year (যেমন 2024)"
+    >
+
+    <button
+        class="official"
+        onclick="openOfficial()"
+    >
+        Official Result Server
+    </button>
+
+    <button
+        class="server"
+        onclick="openMirror()"
+    >
+        Alternative Result Server
+    </button>
+
+    <div class="info">
+        রেজাল্ট দেখতে Roll, Registration ও Exam Year
+        অফিসিয়াল সার্ভারে দিতে হবে।
+    </div>
+
+</div>
+
+<script>
+
+function validate() {
+
+    let roll =
+        document.getElementById("roll").value;
+
+    let registration =
+        document.getElementById("registration").value;
+
+    let year =
+        document.getElementById("year").value;
+
+    if (!roll || !registration || !year) {
+
+        alert(
+            "অনুগ্রহ করে Roll, Registration ও Exam Year দিন।"
+        );
+
+        return false;
+    }
+
+    return true;
+}
+
+
+function openOfficial() {
+
+    if (!validate()) return;
+
+    window.open(
+        "https://result.nu.ac.bd/",
+        "_blank"
+    );
+}
+
+
+function openMirror() {
+
+    if (!validate()) return;
+
+    window.open(
+        "http://103.113.200.8/",
+        "_blank"
+    );
+}
+
+</script>
+
+</body>
+</html>
