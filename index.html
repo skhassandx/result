@@ -1,166 +1,646 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>NU Result Checker</title>
+<title>NU Result Checker | National University Result</title>
 
-    <style>
-        * {
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
+<style>
+:root {
+    --primary: #005b41;
+    --primary-dark: #003d2c;
+    --accent: #d4a017;
+    --bg: #f4f7f6;
+    --white: #ffffff;
+    --text: #17201d;
+    --muted: #68746f;
+    --border: #dce4e0;
+    --danger: #c62828;
+}
 
-        body {
-            margin: 0;
-            background: #f2f4f7;
-        }
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-        .container {
-            max-width: 450px;
-            margin: 50px auto;
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 5px 20px rgba(0,0,0,.1);
-        }
+body {
+    font-family:
+        "Noto Sans Bengali",
+        Arial,
+        sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+}
 
-        h2 {
-            text-align: center;
-        }
+.header {
+    background: linear-gradient(
+        135deg,
+        var(--primary-dark),
+        var(--primary)
+    );
+    color: white;
+    padding: 16px 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,.12);
+}
 
-        input, select, button {
-            width: 100%;
-            padding: 12px;
-            margin-top: 12px;
-            border-radius: 6px;
-            border: 1px solid #ccc;
-            font-size: 16px;
-        }
+.header-inner {
+    max-width: 1050px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
 
-        button {
-            border: none;
-            cursor: pointer;
-        }
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
 
-        .official {
-            background: #006a4e;
-            color: white;
-        }
+.logo {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 23px;
+}
 
-        .server {
-            background: #007bff;
-            color: white;
-        }
+.brand h1 {
+    font-size: 21px;
+}
 
-        .info {
-            margin-top: 20px;
-            text-align: center;
-            font-size: 14px;
-        }
-    </style>
+.brand p {
+    font-size: 12px;
+    opacity: .8;
+    margin-top: 3px;
+}
+
+.badge {
+    background: rgba(255,255,255,.14);
+    border: 1px solid rgba(255,255,255,.2);
+    padding: 7px 12px;
+    border-radius: 30px;
+    font-size: 12px;
+}
+
+.hero {
+    max-width: 1050px;
+    margin: auto;
+    padding: 50px 20px 30px;
+    text-align: center;
+}
+
+.hero h2 {
+    font-size: 32px;
+    margin-bottom: 10px;
+    color: var(--primary-dark);
+}
+
+.hero p {
+    color: var(--muted);
+    max-width: 600px;
+    margin: auto;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 700px;
+    margin: auto;
+    padding: 0 20px 50px;
+}
+
+.card {
+    background: white;
+    border-radius: 18px;
+    padding: 30px;
+    box-shadow:
+        0 8px 30px
+        rgba(0,0,0,.08);
+    border: 1px solid var(--border);
+}
+
+.card-title {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.card-title h3 {
+    font-size: 22px;
+    color: var(--primary-dark);
+}
+
+.card-title p {
+    margin-top: 7px;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.field {
+    margin-bottom: 16px;
+}
+
+.field.full {
+    grid-column: 1 / -1;
+}
+
+label {
+    display: block;
+    margin-bottom: 7px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+input,
+select {
+    width: 100%;
+    height: 48px;
+    padding: 0 14px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: white;
+    font-size: 15px;
+    outline: none;
+    transition: .2s;
+}
+
+input:focus,
+select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(0,91,65,.1);
+}
+
+.actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+button {
+    height: 50px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+    transition: .2s;
+}
+
+.primary-btn {
+    background: var(--primary);
+    color: white;
+}
+
+.primary-btn:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+}
+
+.secondary-btn {
+    background: #edf3f0;
+    color: var(--primary-dark);
+    border: 1px solid #d8e5df;
+}
+
+.secondary-btn:hover {
+    background: #e2ece7;
+}
+
+.message {
+    display: none;
+    margin-top: 18px;
+    padding: 13px;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+.message.error {
+    display: block;
+    background: #ffebee;
+    color: var(--danger);
+    border: 1px solid #ffcdd2;
+}
+
+.info-box {
+    margin-top: 22px;
+    background: #f7faf8;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 17px;
+}
+
+.info-box h4 {
+    margin-bottom: 8px;
+    color: var(--primary-dark);
+}
+
+.info-box ul {
+    padding-left: 20px;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+.notice {
+    max-width: 700px;
+    margin: 25px auto 0;
+    padding: 18px 20px;
+    background: #fff9e6;
+    border: 1px solid #f1dfa0;
+    border-radius: 12px;
+    font-size: 13px;
+    line-height: 1.7;
+    color: #6b5720;
+}
+
+footer {
+    text-align: center;
+    padding: 25px 15px;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+footer span {
+    color: var(--primary);
+    font-weight: bold;
+}
+
+@media (max-width: 600px) {
+
+    .header-inner {
+        align-items: flex-start;
+    }
+
+    .badge {
+        display: none;
+    }
+
+    .hero {
+        padding-top: 35px;
+    }
+
+    .hero h2 {
+        font-size: 25px;
+    }
+
+    .card {
+        padding: 20px;
+        border-radius: 14px;
+    }
+
+    .grid,
+    .actions {
+        grid-template-columns: 1fr;
+    }
+
+    .brand h1 {
+        font-size: 18px;
+    }
+}
+</style>
 </head>
 
 <body>
 
-<div class="container">
+<header class="header">
 
-    <h2>🎓 NU Result Checker</h2>
+    <div class="header-inner">
 
-    <select id="exam">
-        <option value="Honours 1st Year">Honours 1st Year</option>
-        <option value="Honours 2nd Year">Honours 2nd Year</option>
-        <option value="Honours 3rd Year">Honours 3rd Year</option>
-        <option value="Honours 4th Year">
-            Honours 4th Year
-        </option>
-    </select>
+        <div class="brand">
 
-    <input
-        type="number"
-        id="roll"
-        placeholder="Exam Roll"
-    >
+            <div class="logo">
+                🎓
+            </div>
 
-    <input
-        type="number"
-        id="registration"
-        placeholder="Registration Number"
-    >
+            <div>
+                <h1>NU Result Checker</h1>
+                <p>National University Bangladesh</p>
+            </div>
 
-    <input
-        type="number"
-        id="year"
-        placeholder="Exam Year (যেমন 2024)"
-    >
+        </div>
 
-    <button
-        class="official"
-        onclick="openOfficial()"
-    >
-        Official Result Server
-    </button>
+        <div class="badge">
+            Result Information Portal
+        </div>
 
-    <button
-        class="server"
-        onclick="openMirror()"
-    >
-        Alternative Result Server
-    </button>
-
-    <div class="info">
-        রেজাল্ট দেখতে Roll, Registration ও Exam Year
-        অফিসিয়াল সার্ভারে দিতে হবে।
     </div>
 
-</div>
+</header>
+
+
+<section class="hero">
+
+    <h2>জাতীয় বিশ্ববিদ্যালয় রেজাল্ট দেখুন</h2>
+
+    <p>
+        আপনার পরীক্ষার তথ্য নির্বাচন করে
+        অফিসিয়াল রেজাল্ট সার্ভারে প্রবেশ করুন।
+    </p>
+
+</section>
+
+
+<main class="container">
+
+    <div class="card">
+
+        <div class="card-title">
+
+            <h3>Result Search</h3>
+
+            <p>
+                সঠিক Roll ও Registration Number প্রদান করুন
+            </p>
+
+        </div>
+
+
+        <div class="grid">
+
+            <div class="field full">
+
+                <label for="exam">
+                    পরীক্ষার ধরন
+                </label>
+
+                <select id="exam">
+
+                    <option value="">
+                        পরীক্ষার ধরন নির্বাচন করুন
+                    </option>
+
+                    <option>
+                        Honours 1st Year
+                    </option>
+
+                    <option>
+                        Honours 2nd Year
+                    </option>
+
+                    <option>
+                        Honours 3rd Year
+                    </option>
+
+                    <option>
+                        Honours 4th Year
+                    </option>
+
+                    <option>
+                        Degree
+                    </option>
+
+                    <option>
+                        Masters
+                    </option>
+
+                    <option>
+                        Professional
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="field">
+
+                <label for="roll">
+                    পরীক্ষার রোল
+                </label>
+
+                <input
+                    id="roll"
+                    type="text"
+                    inputmode="numeric"
+                    placeholder="যেমন: 2420003"
+                >
+
+            </div>
+
+
+            <div class="field">
+
+                <label for="registration">
+                    রেজিস্ট্রেশন নম্বর
+                </label>
+
+                <input
+                    id="registration"
+                    type="text"
+                    inputmode="numeric"
+                    placeholder="Registration Number"
+                >
+
+            </div>
+
+
+            <div class="field full">
+
+                <label for="year">
+                    পরীক্ষার বছর
+                </label>
+
+                <input
+                    id="year"
+                    type="number"
+                    min="2000"
+                    max="2100"
+                    placeholder="যেমন: 2024"
+                >
+
+            </div>
+
+        </div>
+
+
+        <div class="actions">
+
+            <button
+                class="primary-btn"
+                onclick="openOfficial()"
+            >
+                অফিসিয়াল রেজাল্ট সার্ভার
+            </button>
+
+
+            <button
+                class="secondary-btn"
+                onclick="openAlternative()"
+            >
+                বিকল্প সার্ভার
+            </button>
+
+        </div>
+
+
+        <div
+            id="message"
+            class="message"
+        ></div>
+
+
+        <div class="info-box">
+
+            <h4>ℹ️ ব্যবহারের নিয়ম</h4>
+
+            <ul>
+                <li>পরীক্ষার ধরন নির্বাচন করুন</li>
+                <li>সঠিক Roll Number দিন</li>
+                <li>Registration Number দিন</li>
+                <li>Exam Year নির্বাচন করুন</li>
+                <li>তারপর পছন্দের Result Server খুলুন</li>
+            </ul>
+
+        </div>
+
+    </div>
+
+
+    <div class="notice">
+
+        ⚠️ <b>গুরুত্বপূর্ণ:</b>
+        এই ওয়েবসাইটটি জাতীয় বিশ্ববিদ্যালয়ের অফিসিয়াল
+        সার্ভারের বিকল্প তথ্যভিত্তিক প্রবেশপথ।
+        রেজাল্টের চূড়ান্ত তথ্য সর্বদা
+        National University-এর অফিসিয়াল সার্ভার থেকে
+        যাচাই করুন।
+
+    </div>
+
+</main>
+
+
+<footer>
+
+    © 2026
+    <span>NU Result Checker</span>
+
+    <br>
+
+    This website is not an official website of
+    National University.
+
+</footer>
+
 
 <script>
 
-function validate() {
+function validateForm() {
 
-    let roll =
-        document.getElementById("roll").value;
+    const exam =
+        document.getElementById("exam").value;
 
-    let registration =
-        document.getElementById("registration").value;
+    const roll =
+        document.getElementById("roll").value.trim();
 
-    let year =
-        document.getElementById("year").value;
+    const registration =
+        document
+            .getElementById("registration")
+            .value
+            .trim();
 
-    if (!roll || !registration || !year) {
+    const year =
+        document.getElementById("year").value.trim();
 
-        alert(
-            "অনুগ্রহ করে Roll, Registration ও Exam Year দিন।"
+    const message =
+        document.getElementById("message");
+
+
+    message.className = "message";
+    message.innerHTML = "";
+
+
+    if (!exam) {
+
+        showError(
+            "অনুগ্রহ করে পরীক্ষার ধরন নির্বাচন করুন।"
         );
 
         return false;
     }
 
+
+    if (!roll) {
+
+        showError(
+            "অনুগ্রহ করে পরীক্ষার রোল দিন।"
+        );
+
+        return false;
+    }
+
+
+    if (!registration) {
+
+        showError(
+            "অনুগ্রহ করে Registration Number দিন।"
+        );
+
+        return false;
+    }
+
+
+    if (!year) {
+
+        showError(
+            "অনুগ্রহ করে Exam Year দিন।"
+        );
+
+        return false;
+    }
+
+
     return true;
+}
+
+
+function showError(text) {
+
+    const message =
+        document.getElementById("message");
+
+    message.className =
+        "message error";
+
+    message.innerHTML =
+        "⚠️ " + text;
+
 }
 
 
 function openOfficial() {
 
-    if (!validate()) return;
+    if (!validateForm()) return;
 
     window.open(
         "https://result.nu.ac.bd/",
         "_blank"
     );
+
 }
 
 
-function openMirror() {
+function openAlternative() {
 
-    if (!validate()) return;
+    if (!validateForm()) return;
 
     window.open(
         "http://103.113.200.8/",
         "_blank"
     );
+
 }
 
 </script>
