@@ -1,5 +1,4 @@
-const API_URL = "PASTE_YOUR_CLOUDFLARE_WORKER_URL_HERE";
-
+const API_URL = "https://result.hassanalmamun00.workers.dev";
 
 const form =
     document.getElementById("resultForm");
