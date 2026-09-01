@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
   <meta charset="UTF-8">
 
   <meta
@@ -16,12 +15,11 @@
     rel="stylesheet"
     href="style.css"
   >
-
 </head>
-
 
 <body>
 
+  <!-- HEADER -->
   <header class="header">
 
     <div class="header-content">
@@ -51,12 +49,11 @@
   </header>
 
 
-
+  <!-- MAIN CONTENT -->
   <main class="container">
 
 
-    <!-- SEARCH FORM -->
-
+    <!-- SEARCH CARD -->
     <section class="search-card">
 
       <div class="card-title">
@@ -72,9 +69,11 @@
       </div>
 
 
+      <!-- RESULT FORM -->
       <form id="resultForm">
 
 
+        <!-- EXAMINATION -->
         <div class="form-group">
 
           <label for="exam">
@@ -95,7 +94,7 @@
         </div>
 
 
-
+        <!-- ROLL -->
         <div class="form-group">
 
           <label for="roll">
@@ -112,7 +111,7 @@
         </div>
 
 
-
+        <!-- REGISTRATION -->
         <div class="form-group">
 
           <label for="registration">
@@ -129,7 +128,7 @@
         </div>
 
 
-
+        <!-- EXAM YEAR -->
         <div class="form-group">
 
           <label for="year">
@@ -147,7 +146,7 @@
         </div>
 
 
-
+        <!-- SEARCH BUTTON -->
         <button
           type="submit"
           id="searchButton"
@@ -170,31 +169,32 @@
     </section>
 
 
-
+    <!-- MESSAGE -->
     <div
       id="message"
       class="message hidden"
     ></div>
 
 
-
     <!-- RESULT SECTION -->
-
     <section
       id="resultSection"
       class="result-card hidden"
     >
 
 
+      <!-- RESULT HEADER -->
       <div class="result-header">
 
         <div>
 
           <h2>
-            Result Sheet
+            Official Result Sheet
           </h2>
 
-          <p id="examTitle"></p>
+          <p>
+            Result information from National University
+          </p>
 
         </div>
 
@@ -209,188 +209,20 @@
       </div>
 
 
-
-      <!-- STUDENT INFORMATION -->
-
-      <div class="info-section">
-
-        <h3>
-          Student Information
-        </h3>
-
-
-        <div
-          id="studentInfo"
-          class="student-grid"
-        ></div>
+      <!-- OFFICIAL RESULT -->
+      <div
+        id="officialResult"
+        class="official-result"
+      >
 
       </div>
 
 
-
-      <!-- GRADE DETAILS -->
-
-      <div class="info-section">
-
-        <h3>
-          Grade / Result Details
-        </h3>
-
-
-        <div class="table-wrapper">
-
-          <table>
-
-            <thead>
-
-              <tr>
-
-                <th>
-                  Course Code
-                </th>
-
-                <th>
-                  Grade
-                </th>
-
-                <th>
-                  Grade Point
-                </th>
-
-              </tr>
-
-            </thead>
-
-
-            <tbody
-              id="resultTable"
-            ></tbody>
-
-          </table>
-
-        </div>
-
-      </div>
-
-
-
-      <!-- GPA SUMMARY -->
-
-      <div class="info-section">
-
-        <h3>
-          Academic Summary
-        </h3>
-
-
-        <div class="student-grid">
-
-
-          <div class="info-item">
-
-            <span>
-              Total Courses
-            </span>
-
-            <strong id="totalCourses">
-              -
-            </strong>
-
-          </div>
-
-
-
-          <div class="info-item">
-
-            <span>
-              Passed Courses
-            </span>
-
-            <strong id="passedCourses">
-              -
-            </strong>
-
-          </div>
-
-
-
-          <div class="info-item">
-
-            <span>
-              Failed Courses
-            </span>
-
-            <strong id="failedCourses">
-              -
-            </strong>
-
-          </div>
-
-
-
-          <div class="info-item">
-
-            <span>
-              4th Year GPA
-            </span>
-
-            <strong id="fourthYearGPA">
-              -
-            </strong>
-
-          </div>
-
-
-        </div>
-
-      </div>
-
-
-
-      <!-- CGPA SECTION -->
-
-      <div class="info-section">
-
-        <h3>
-          Overall Honours CGPA
-        </h3>
-
-
-        <div class="info-item">
-
-          <span>
-            Current CGPA Status
-          </span>
-
-          <strong
-            id="cgpa"
-            style="font-size: 22px;"
-          >
-            -
-          </strong>
-
-        </div>
-
-
-        <br>
-
-
-        <div
-          id="cgpaStatus"
-          class="message success"
-        >
-          -
-        </div>
-
-      </div>
-
-
-
+      <!-- RESULT FOOTER -->
       <div class="result-footer">
 
         <p>
-          Result information retrieved from
-          National University result service.
+          Result retrieved from National University Result Server.
         </p>
 
       </div>
@@ -402,20 +234,25 @@
   </main>
 
 
-
+  <!-- FOOTER -->
   <footer>
 
-    <p>
-      © 2026 NU Result Checker
-    </p>
+    <div class="footer-content">
 
-    <p>
-      Independent result-checking interface
-    </p>
+      <p>
+        © 2026 NU Result Checker
+      </p>
+
+      <p>
+        Independent Result Checking Interface
+      </p>
+
+    </div>
 
   </footer>
 
 
+  <!-- JAVASCRIPT -->
   <script src="script.js"></script>
 
 </body>
