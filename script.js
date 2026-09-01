@@ -21,47 +21,73 @@ const loader =
   document.getElementById("loader");
 
 
-function showMessage(text, type = "error") {
-  message.textContent = text;
-  message.className = `message ${type}`;
+function showMessage(
+  text,
+  type = "error"
+) {
+
+  message.textContent =
+    text;
+
+  message.className =
+    `message ${type}`;
+
 }
 
 
 function hideMessage() {
-  message.className = "message hidden";
+
+  message.className =
+    "message hidden";
+
 }
 
 
 function setLoading(loading) {
 
-  searchButton.disabled = loading;
+  searchButton.disabled =
+    loading;
+
 
   if (loading) {
 
-    buttonText.textContent = "Searching...";
+    buttonText.textContent =
+      "Searching...";
 
-    loader.classList.remove("hidden");
+    loader.classList.remove(
+      "hidden"
+    );
 
   } else {
 
-    buttonText.textContent = "Search Result";
+    buttonText.textContent =
+      "Search Result";
 
-    loader.classList.add("hidden");
+    loader.classList.add(
+      "hidden"
+    );
 
   }
+
 }
 
+
+/* ==========================
+   FORM SUBMIT
+========================== */
 
 form.addEventListener(
   "submit",
 
-  async function (event) {
+  async function(event) {
 
     event.preventDefault();
 
     hideMessage();
 
-    resultSection.classList.add("hidden");
+    resultSection.classList.add(
+      "hidden"
+    );
 
 
     const exam =
@@ -69,17 +95,20 @@ form.addEventListener(
         .getElementById("exam")
         .value;
 
+
     const roll =
       document
         .getElementById("roll")
         .value
         .trim();
 
+
     const registration =
       document
         .getElementById("registration")
         .value
         .trim();
+
 
     const year =
       document
@@ -88,13 +117,18 @@ form.addEventListener(
         .trim();
 
 
-    if (!roll || !registration || !year) {
+    if (
+      !roll ||
+      !registration ||
+      !year
+    ) {
 
       showMessage(
-        "Please enter Roll, Registration and Exam Year."
+        "Please enter all required information."
       );
 
       return;
+
     }
 
 
@@ -103,31 +137,36 @@ form.addEventListener(
 
     try {
 
-      const response = await fetch(
-        API_URL,
-        {
-          method: "POST",
+      const response =
+        await fetch(
+          API_URL,
+          {
+            method: "POST",
 
-          headers: {
-            "Content-Type":
-              "application/json"
-          },
+            headers: {
+              "Content-Type":
+                "application/json"
+            },
 
-          body: JSON.stringify({
-            exm_code: exam,
-            roll: roll,
-            reg: registration,
-            exm_year: year
-          })
-        }
-      );
+            body:
+              JSON.stringify({
+                exm_code: exam,
+                roll: roll,
+                reg: registration,
+                exm_year: year
+              })
+          }
+        );
 
 
       const data =
         await response.json();
 
 
-      if (!response.ok || !data.success) {
+      if (
+        !response.ok ||
+        !data.success
+      ) {
 
         throw new Error(
           data.error ||
@@ -137,7 +176,9 @@ form.addEventListener(
       }
 
 
-      displayResult(data);
+      displayOfficialResult(
+        data.html
+      );
 
 
     } catch (error) {
@@ -157,193 +198,134 @@ form.addEventListener(
 );
 
 
-/* ================================
-   DISPLAY RESULT
-================================ */
-
-function displayResult(data) {
-
-  document
-    .getElementById("examTitle")
-    .textContent =
-      data.examTitle ||
-      "National University Result";
-
-
-  /* STUDENT INFORMATION */
-
-  const studentInfo =
-    document.getElementById("studentInfo");
-
-  studentInfo.innerHTML = "";
-
-
-  const student =
-    data.student;
-
-
-  const fields = [
-
-    ["Name", student.name],
-
-    ["Father's Name", student.father],
-
-    ["Mother's Name", student.mother],
-
-    ["Roll", student.roll],
-
-    ["Registration", student.registration],
-
-    ["Exam Year", student.examYear]
-
-  ];
-
-
-  fields.forEach(function (item) {
-
-    const div =
-      document.createElement("div");
-
-    div.className =
-      "info-item";
-
-
-    const label =
-      document.createElement("span");
-
-    label.textContent =
-      item[0];
-
-
-    const value =
-      document.createElement("strong");
-
-    value.textContent =
-      item[1] || "-";
-
-
-    div.appendChild(label);
-
-    div.appendChild(value);
-
-
-    studentInfo.appendChild(div);
-
-  });
-
-
-  /* RESULT TABLE */
-
-  const resultTable =
-    document.getElementById("resultTable");
-
-  resultTable.innerHTML = "";
-
-
-  data.results.forEach(function (result) {
-
-    const row =
-      document.createElement("tr");
-
-
-    const courseCell =
-      document.createElement("td");
-
-    courseCell.textContent =
-      result.courseCode;
-
-
-    const gradeCell =
-      document.createElement("td");
-
-    gradeCell.textContent =
-      result.grade;
-
-
-    const pointCell =
-      document.createElement("td");
-
-    pointCell.textContent =
-      Number(result.gradePoint)
-        .toFixed(2);
-
-
-    row.appendChild(courseCell);
-
-    row.appendChild(gradeCell);
-
-    row.appendChild(pointCell);
-
-
-    resultTable.appendChild(row);
-
-  });
-
-
-  /* ================================
-     GPA / CGPA SUMMARY
-  ================================ */
-
-  const summary =
-    data.summary;
-
-
-  document
-    .getElementById("totalCourses")
-    .textContent =
-      summary.totalCourses;
-
-
-  document
-    .getElementById("passedCourses")
-    .textContent =
-      summary.passedCourses;
-
-
-  document
-    .getElementById("failedCourses")
-    .textContent =
-      summary.failedCourses;
-
-
-  document
-    .getElementById("fourthYearGPA")
-    .textContent =
-      Number(summary.gpa)
-        .toFixed(2);
-
-
-  const cgpaElement =
-    document.getElementById("cgpa");
-
-
-  const cgpaStatus =
-    document.getElementById("cgpaStatus");
+/* ==========================
+   DISPLAY OFFICIAL RESULT
+========================== */
+
+function displayOfficialResult(html) {
+
+  /*
+    Parse official NU HTML
+  */
+
+  const parser =
+    new DOMParser();
+
+  const doc =
+    parser.parseFromString(
+      html,
+      "text/html"
+    );
 
 
   /*
-  শুধুমাত্র 4th year result দিয়ে
-  Honours CGPA বের করা যাবে না।
+    Find Student Basic Info table
   */
 
-  cgpaElement.textContent =
-    "Not Available";
+  const tables =
+    doc.querySelectorAll(
+      "table"
+    );
 
 
-  if (summary.failedCourses > 0) {
+  let resultHTML = "";
 
-    cgpaStatus.textContent =
-      `You have failed in ${summary.failedCourses} course(s). Final CGPA will not be available until the failed subjects are cleared.`;
+  let started = false;
 
-  } else {
 
-    cgpaStatus.textContent =
-      "4th Year result is available. Overall Honours CGPA requires results from all academic years.";
+  tables.forEach(function(table) {
+
+    const text =
+      table.innerText ||
+      "";
+
+
+    /*
+      Start from Student Basic Info
+    */
+
+    if (
+      text.includes(
+        "Student Basic Info"
+      )
+    ) {
+
+      started = true;
+
+    }
+
+
+    /*
+      Collect official tables
+    */
+
+    if (started) {
+
+      resultHTML +=
+        table.outerHTML;
+
+    }
+
+
+    /*
+      Stop before later search form
+    */
+
+    if (
+      text.includes(
+        "Controller of Examinations"
+      )
+    ) {
+
+      started = false;
+
+    }
+
+  });
+
+
+  /*
+    Fallback
+  */
+
+  if (!resultHTML) {
+
+    const content =
+      doc.querySelector(
+        "#contentarea"
+      );
+
+
+    if (content) {
+
+      resultHTML =
+        content.innerHTML;
+
+    } else {
+
+      resultHTML =
+        html;
+
+    }
 
   }
 
 
-  resultSection.classList.remove("hidden");
+  /*
+    Display official result
+  */
+
+  document
+    .getElementById(
+      "officialResult"
+    )
+    .innerHTML =
+      resultHTML;
+
+
+  resultSection.classList.remove(
+    "hidden"
+  );
 
 
   resultSection.scrollIntoView({
