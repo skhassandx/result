@@ -55,6 +55,8 @@
   <main class="container">
 
 
+    <!-- SEARCH FORM -->
+
     <section class="search-card">
 
       <div class="card-title">
@@ -176,6 +178,8 @@
 
 
 
+    <!-- RESULT SECTION -->
+
     <section
       id="resultSection"
       class="result-card hidden"
@@ -199,14 +203,14 @@
           class="print-btn"
           onclick="window.print()"
         >
-
           🖨 Print
-
         </button>
 
       </div>
 
 
+
+      <!-- STUDENT INFORMATION -->
 
       <div class="info-section">
 
@@ -223,6 +227,8 @@
       </div>
 
 
+
+      <!-- GRADE DETAILS -->
 
       <div class="info-section">
 
@@ -247,6 +253,10 @@
                   Grade
                 </th>
 
+                <th>
+                  Grade Point
+                </th>
+
               </tr>
 
             </thead>
@@ -261,6 +271,119 @@
         </div>
 
       </div>
+
+
+
+      <!-- GPA SUMMARY -->
+
+      <div class="info-section">
+
+        <h3>
+          Academic Summary
+        </h3>
+
+
+        <div class="student-grid">
+
+
+          <div class="info-item">
+
+            <span>
+              Total Courses
+            </span>
+
+            <strong id="totalCourses">
+              -
+            </strong>
+
+          </div>
+
+
+
+          <div class="info-item">
+
+            <span>
+              Passed Courses
+            </span>
+
+            <strong id="passedCourses">
+              -
+            </strong>
+
+          </div>
+
+
+
+          <div class="info-item">
+
+            <span>
+              Failed Courses
+            </span>
+
+            <strong id="failedCourses">
+              -
+            </strong>
+
+          </div>
+
+
+
+          <div class="info-item">
+
+            <span>
+              4th Year GPA
+            </span>
+
+            <strong id="fourthYearGPA">
+              -
+            </strong>
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+
+
+      <!-- CGPA SECTION -->
+
+      <div class="info-section">
+
+        <h3>
+          Overall Honours CGPA
+        </h3>
+
+
+        <div class="info-item">
+
+          <span>
+            Current CGPA Status
+          </span>
+
+          <strong
+            id="cgpa"
+            style="font-size: 22px;"
+          >
+            -
+          </strong>
+
+        </div>
+
+
+        <br>
+
+
+        <div
+          id="cgpaStatus"
+          class="message success"
+        >
+          -
+        </div>
+
+      </div>
+
 
 
       <div class="result-footer">
